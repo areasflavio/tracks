@@ -5,6 +5,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { prismaClient } from '../../lib/prisma';
 
+const customCookie = process.env.ACCESS_TOKEN_COOKIE;
+const jwtSecret = process.env.JWT_SECRET;
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, password } = req.body;
 
@@ -30,7 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       id: user.id,
       time: Date.now(),
     },
-    process.env.JWT_SECRET,
+    jwtSecret,
     {
       expiresIn: '8h',
     }
@@ -38,7 +41,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   res.setHeader(
     'Set-Cookie',
-    cookie.serialize('TRACKS_ACCESS_TOKEN', token, {
+    cookie.serialize(customCookie, token, {
       httpOnly: true,
       maxAge: 60 * 60 * 8, // 8h
       path: '/',
