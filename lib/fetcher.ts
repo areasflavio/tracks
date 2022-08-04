@@ -1,5 +1,8 @@
-export const fetcher = (url: string, data = undefined) => {
-  return fetch(`${window.location.origin}/api${url}`, {
+export async function fetcher<T = any>(
+  url: string,
+  data = undefined
+): Promise<T> {
+  const res = await fetch(`${window.location.origin}/api${url}`, {
     method: data ? 'POST' : 'GET',
     credentials: 'include',
     headers: {
@@ -7,4 +10,10 @@ export const fetcher = (url: string, data = undefined) => {
     },
     body: JSON.stringify(data, ['email', 'name', 'password']),
   });
-};
+
+  if (res.status < 200 || res.status > 399) {
+    throw new Error('Fetch error.');
+  }
+
+  return res.json();
+}
