@@ -31,7 +31,6 @@ export const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
 
       route.push('/');
     } catch (err) {
-      console.error(err);
       setIsLoading(false);
     }
   };

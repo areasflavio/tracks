@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { prismaClient } from '../lib/prisma';
@@ -17,7 +18,7 @@ export const validateRoute = handler => {
       return res.status(401).json({ error: 'Token not found.' });
     }
 
-    let user;
+    let user: User;
 
     try {
       const { id } = jwt.verify(token, jwtSecret) as TokenDto;

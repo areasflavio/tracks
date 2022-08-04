@@ -1,3 +1,4 @@
+import { User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import cookie from 'cookie';
 import jwt from 'jsonwebtoken';
@@ -11,7 +12,7 @@ const jwtSecret = process.env.JWT_SECRET;
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, password } = req.body;
 
-  let user;
+  let user: User;
 
   try {
     user = await prismaClient.user.findUniqueOrThrow({
