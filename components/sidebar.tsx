@@ -10,6 +10,7 @@ import {
   OrderedList,
   UnorderedList,
 } from '@chakra-ui/layout';
+import { Playlist } from '@prisma/client';
 import NextImage from 'next/image';
 import NextLink from 'next/link';
 import {
@@ -19,6 +20,8 @@ import {
   MdPlaylistAdd,
   MdSearch,
 } from 'react-icons/md';
+
+import { useFetchWithSWR } from '../hooks/useFetchWithSWR';
 
 const navMenu = [
   {
@@ -51,11 +54,9 @@ const musicMenu = [
   },
 ];
 
-const playlists = new Array(30)
-  .fill(1)
-  .map((_, index) => `Playlist ${++index}`);
-
 export const Sidebar = () => {
+  const { data: playlists } = useFetchWithSWR<Playlist>('/playlist');
+
   return (
     <Box w="100%" h="calc(100vh - 100px)" px="5px" bg="black" color="gray">
       <Box h="100%" py="20px">
@@ -65,7 +66,7 @@ export const Sidebar = () => {
 
         <Box mb="20px">
           <List spacing={2}>
-            {navMenu.map((item) => (
+            {navMenu.map(item => (
               <ListItem key={item.name} px="20px" fontSize="16px">
                 <LinkBox>
                   <NextLink href={item.route} passHref>
@@ -82,7 +83,7 @@ export const Sidebar = () => {
 
         <Box my="20px">
           <List spacing={2}>
-            {musicMenu.map((item) => (
+            {musicMenu.map(item => (
               <ListItem key={item.name} px="20px" fontSize="16px">
                 <LinkBox>
                   <NextLink href={item.route} passHref>
@@ -103,11 +104,11 @@ export const Sidebar = () => {
 
         <Box h="66%" overflowY="auto" py="20px">
           <List spacing={2}>
-            {playlists.map((playlist) => (
-              <ListItem key={playlist} px="20px">
+            {playlists.map(playlist => (
+              <ListItem key={playlist.id} px="20px">
                 <LinkBox>
                   <NextLink href="/" passHref>
-                    <LinkOverlay>{playlist}</LinkOverlay>
+                    <LinkOverlay>{playlist.name}</LinkOverlay>
                   </NextLink>
                 </LinkBox>
               </ListItem>
