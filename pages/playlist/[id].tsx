@@ -2,6 +2,7 @@ import { Box, Flex, Text } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/react';
 import { Artist, Playlist as PlaylistType, Song } from '@prisma/client';
 import { GetServerSideProps } from 'next';
+import { SongsTable } from '../../components/songsTable';
 
 import { GradientLayout } from '../../layouts/gradientLayout';
 import { validateToken } from '../../lib/auth';
@@ -23,7 +24,7 @@ const colors = [
 
 const getPlaylistIndex = (id: string) => {
   const index = parseInt(
-    Intl.NumberFormat('pt-BR', {
+    Intl.NumberFormat('en-US', {
       notation: 'scientific',
     }).format(parseInt(id, 10)),
     10
@@ -66,7 +67,7 @@ const Playlist = ({ playlist }: Props) => {
       description={playlistDescription}
       image={`https://picsum.photos/400?random=${playlistIndex}`}
     >
-      {playlist.name}
+      <SongsTable songs={playlist.songs} />
     </GradientLayout>
   );
 };
