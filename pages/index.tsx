@@ -10,19 +10,25 @@ interface Props {
   artists: Artist[];
 }
 
-const Home = ({ artists }: Props) => {
-  const { data: user } = useFetchWithSWR<User>('/me');
+type UserPageProps = User & {
+  playlistCount: number;
+};
 
-  console.log(user);
+const Home = ({ artists }: Props) => {
+  const { data: user } = useFetchWithSWR<UserPageProps>('/me');
+
+  if (!user) {
+    return;
+  }
 
   return (
     <GradientLayout
       color="gray"
-      title="Flávio Arêas"
+      title={user.name}
       subtitle="Profile"
       image="https://github.com/areasflavio.png"
       roundImage
-      description="15 public playlists"
+      description={`${user.playlistCount} public playlists`}
     >
       <Box color="white" paddingX="40px">
         <Box marginBottom="40px">
