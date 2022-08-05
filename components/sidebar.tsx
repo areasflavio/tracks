@@ -57,6 +57,10 @@ const musicMenu = [
 export const Sidebar = () => {
   const { data: playlists } = useFetchWithSWR<Playlist[]>('/playlist');
 
+  if (!playlists) {
+    return;
+  }
+
   return (
     <Box w="100%" h="calc(100vh - 100px)" px="5px" bg="black" color="gray">
       <Box h="100%" py="20px">
@@ -107,7 +111,15 @@ export const Sidebar = () => {
             {playlists.map((playlist: Playlist) => (
               <ListItem key={playlist.id} px="20px">
                 <LinkBox>
-                  <NextLink href="/" passHref>
+                  <NextLink
+                    href={{
+                      pathname: '/playlist/[id]',
+                      query: {
+                        id: playlist.id,
+                      },
+                    }}
+                    passHref
+                  >
                     <LinkOverlay>{playlist.name}</LinkOverlay>
                   </NextLink>
                 </LinkBox>

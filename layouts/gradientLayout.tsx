@@ -4,7 +4,7 @@ import { Image } from '@chakra-ui/react';
 type Props = BoxProps & {
   description: string;
   image: string;
-  roundImage: boolean;
+  roundImage?: boolean;
   title: string;
   subtitle: string;
 };
