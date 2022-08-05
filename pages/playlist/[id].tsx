@@ -76,9 +76,11 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
   req,
 }) => {
-  const id = validateToken(req.cookies[customCookie]);
+  let id: string;
 
-  if (!id) {
+  try {
+    id = validateToken(req.cookies[customCookie]);
+  } catch (err) {
     return {
       redirect: {
         destination: '/signin',

@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/react';
 import { Artist, User } from '@prisma/client';
+import { GetServerSideProps } from 'next';
 
 import { useFetchWithSWR } from '../hooks/useFetchWithSWR';
 import { GradientLayout } from '../layouts/gradientLayout';
@@ -58,7 +59,7 @@ const Home = ({ artists }: Props) => {
   );
 };
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const artists = await prismaClient.artist.findMany({});
 
   return {
