@@ -1,6 +1,6 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import 'reset-css';
-import { PlayerLayout } from '../components/playerLayout';
+import { PlayerLayout } from '../layouts/playerLayout';
 import '../styles/globals.css';
 
 const theme = extendTheme({
