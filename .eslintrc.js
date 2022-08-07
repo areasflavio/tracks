@@ -40,6 +40,7 @@ module.exports = {
       },
     ],
     'react/require-default-props': 'off',
+    'jsx-a11y/aria-proptypes': 'warn',
     'prettier/prettier': 'warn',
   },
 };
