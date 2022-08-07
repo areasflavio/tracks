@@ -1,5 +1,6 @@
 import { Artist, Playlist as PlaylistType, Song } from '@prisma/client';
 import { GetServerSideProps } from 'next';
+import Head from 'next/head';
 
 import { SongsTable } from '../../components/songsTable';
 import { GradientLayout } from '../../layouts/gradientLayout';
@@ -58,15 +59,21 @@ const Playlist = ({ playlist }: Props) => {
   playlistDescription += ` ${playlist.duration.minutes} minutes`;
 
   return (
-    <GradientLayout
-      color={bgColor}
-      subtitle="Playlist"
-      title={playlist.name}
-      description={playlistDescription}
-      image={`https://picsum.photos/400?random=${Math.random() * 10}`}
-    >
-      <SongsTable songs={playlist.songs} />
-    </GradientLayout>
+    <>
+      <Head>
+        <title>{playlist.name} | Tracks</title>
+      </Head>
+
+      <GradientLayout
+        color={bgColor}
+        subtitle="Playlist"
+        title={playlist.name}
+        description={playlistDescription}
+        image={`https://picsum.photos/400?random=${Math.random() * 10}`}
+      >
+        <SongsTable songs={playlist.songs} />
+      </GradientLayout>
+    </>
   );
 };
 
