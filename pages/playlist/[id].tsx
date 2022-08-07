@@ -1,9 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/layout';
-import { Image } from '@chakra-ui/react';
 import { Artist, Playlist as PlaylistType, Song } from '@prisma/client';
 import { GetServerSideProps } from 'next';
-import { SongsTable } from '../../components/songsTable';
 
+import { SongsTable } from '../../components/songsTable';
 import { GradientLayout } from '../../layouts/gradientLayout';
 import { validateToken } from '../../lib/auth';
 import { prismaClient } from '../../lib/prisma';
@@ -65,7 +63,7 @@ const Playlist = ({ playlist }: Props) => {
       subtitle="Playlist"
       title={playlist.name}
       description={playlistDescription}
-      image={`https://picsum.photos/400?random=${playlistIndex}`}
+      image={`https://picsum.photos/400?random=${Math.random() * 10}`}
     >
       <SongsTable songs={playlist.songs} />
     </GradientLayout>

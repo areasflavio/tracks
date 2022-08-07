@@ -1,6 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/react';
 import { useStoreState } from '../lib/store';
+import { EmptyPlayer } from './emptyPlayer';
 import { Player } from './player';
 
 export const PlayerBar = () => {
@@ -9,9 +10,9 @@ export const PlayerBar = () => {
   return (
     <Box h="100px" w="100vw" bg="gray.900" p="10px">
       <Flex align="center">
-        {activeSong && (
-          <>
-            <Flex align="center" w="30%">
+        <Flex align="center" w="30%">
+          {activeSong && (
+            <>
               <Image
                 src={`https://picsum.photos/400?random=${Math.random() * 10}`}
                 w="70px"
@@ -21,14 +22,17 @@ export const PlayerBar = () => {
                 <Text fontSize="md">{activeSong.name}</Text>
                 <Text fontSize="x-small">{activeSong.artist.name}</Text>
               </Box>
-            </Flex>
+            </>
+          )}
+        </Flex>
 
-            <Box w="40%">
-              <Player activeSong={activeSong} songs={activeSongs} />
-            </Box>
-            <Box w="30%">controls</Box>
-          </>
-        )}
+        <Box w="40%">
+          {activeSong ? (
+            <Player activeSong={activeSong} songs={activeSongs} />
+          ) : (
+            <EmptyPlayer />
+          )}
+        </Box>
       </Flex>
     </Box>
   );
