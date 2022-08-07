@@ -3,15 +3,23 @@ import { IconButton, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { AiOutlineClockCircle } from 'react-icons/ai';
 import { BsFillPlayFill } from 'react-icons/bs';
 
-import { Song } from '@prisma/client';
-
 import { formatDate, formatTime } from '../lib/formatters';
+import { PlaylistSong, useStoreActions } from '../lib/store';
 
 interface Props {
-  songs: Song[];
+  songs: PlaylistSong[];
 }
 
 export const SongsTable = ({ songs }: Props) => {
+  const { changeActiveSong, changeActiveSongs } = useStoreActions(
+    store => store
+  );
+
+  const handlePlay = (activeSong?: PlaylistSong) => {
+    changeActiveSong(activeSong || songs[0]);
+    changeActiveSongs(songs);
+  };
+
   return (
     <Box bg="transparent" color="white">
       <Box p="10px" mb="20px">
@@ -22,6 +30,7 @@ export const SongsTable = ({ songs }: Props) => {
             size="lg"
             isRound
             aria-label="play"
+            onClick={() => handlePlay()}
           />
         </Box>
 
@@ -47,7 +56,8 @@ export const SongsTable = ({ songs }: Props) => {
                     bg: 'rgba(255,255,255,0.1)',
                   },
                 }}
-                cursor="default"
+                cursor="pointer"
+                onClick={() => handlePlay(song)}
               >
                 <Td>{index + 1}</Td>
                 <Td>{song.name}</Td>
