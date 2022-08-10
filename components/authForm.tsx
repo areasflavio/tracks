@@ -7,6 +7,7 @@ import {
   InputRightElement,
   Link,
   LinkBox,
+  useToast,
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import NextImage from 'next/image';
@@ -22,11 +23,15 @@ export const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
   const route = useRouter();
+  const toast = useToast();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setHasError(false);
 
     try {
       const formData = {
@@ -34,16 +39,44 @@ export const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
         password,
       };
 
-      if (mode === 'signup')
+      if (mode === 'signup') {
         Object.defineProperty(formData, 'name', {
           value: name,
         });
 
+        if (
+          name.trim() === '' ||
+          email.trim() === '' ||
+          password.trim() === ''
+        ) {
+          throw new Error('');
+        }
+      }
+
       await auth(mode, formData);
+
+      if (mode === 'signup') {
+        toast({
+          title: 'Account created.',
+          description: "We've created your account for you.",
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
+      }
 
       route.push('/');
     } catch (err) {
+      setHasError(true);
       setIsLoading(false);
+
+      toast({
+        title: `Error to ${mode}`,
+        description: 'Check your credentials.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
@@ -121,6 +154,7 @@ export const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
                   placeholder="Name"
                   onChange={e => setName(e.target.value)}
                   borderRadius="full"
+                  focusBorderColor="green.300"
                 />
               )}
 
@@ -129,6 +163,10 @@ export const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
                 placeholder="Email"
                 onChange={e => setEmail(e.target.value)}
                 borderRadius="full"
+                focusBorderColor="green.300"
+                isRequired
+                isInvalid={hasError}
+                onFocus={() => setHasError(false)}
               />
 
               <InputGroup size="md">
@@ -137,6 +175,10 @@ export const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
                   placeholder="Password"
                   onChange={e => setPassword(e.target.value)}
                   borderRadius="full"
+                  focusBorderColor="green.300"
+                  isRequired
+                  isInvalid={hasError}
+                  onFocus={() => setHasError(false)}
                 />
                 <InputRightElement mr="4px">
                   <Button
