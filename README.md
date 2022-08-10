@@ -157,9 +157,10 @@ yarn install
 # Copy the .env.example to the .env file and inject your credentials
 cp .env.example .env
 
-# Run the database migrations
+# Run the database commands
 yarn prisma generate
-yarn prisma migrate
+yarn prisma migrate dev
+yarn prisma db seed
 
 # To start the development server, run the following command
 yarn dev
