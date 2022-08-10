@@ -27,10 +27,11 @@ export const GradientLayout = ({
     <Box
       height="100%"
       overflowY="auto"
+      overflowX="clip"
       bgGradient={`linear(${color}.500 0%, ${color}.600 15%, ${color}.700 40%, rgba(0,0,0,0.95) 75%)`}
       position="relative"
     >
-      <Flex position="absolute" top={4} right={8}>
+      <Flex position="absolute" top="20px" right="40px">
         <UserMenu
           avatar={`https://i.pravatar.cc/300?u=${user.name}`}
           name={user.name}

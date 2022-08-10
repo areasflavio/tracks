@@ -46,9 +46,10 @@ const Home = ({ artists }: Props) => {
               Only visible to you
             </Text>
           </Box>
-          <Flex>
+
+          <Flex paddingBottom="16px" overflowX="auto">
             {artists.map(artist => (
-              <Box paddingX="10px" width="20%" key={artist.id}>
+              <Box paddingX="10px" minW="20%" key={artist.id}>
                 <Box
                   bg="gray.900"
                   borderRadius="4px"
