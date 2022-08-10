@@ -23,6 +23,10 @@ export const GradientLayout = ({
 }: Props) => {
   const { data: user } = useFetchWithSWR<User>('/me');
 
+  if (!user) {
+    return;
+  }
+
   return (
     <Box
       height="100%"
