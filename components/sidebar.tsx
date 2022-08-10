@@ -1,14 +1,11 @@
 import {
   Box,
-  Center,
   Divider,
   LinkBox,
   LinkOverlay,
   List,
   ListIcon,
   ListItem,
-  OrderedList,
-  UnorderedList,
 } from '@chakra-ui/layout';
 import { Playlist } from '@prisma/client';
 import NextImage from 'next/image';

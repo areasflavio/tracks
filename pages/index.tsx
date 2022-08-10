@@ -33,7 +33,7 @@ const Home = ({ artists }: Props) => {
         color="gray"
         title={user.name}
         subtitle="Profile"
-        image="https://github.com/areasflavio.png"
+        image={`https://i.pravatar.cc/300?u=${user.name}`}
         roundImage
         description={`${user.playlistCount} public playlists`}
       >
@@ -42,7 +42,9 @@ const Home = ({ artists }: Props) => {
             <Text fontSize="2xl" fontWeight="bold">
               Top artist this month
             </Text>
-            <Text fontSize="md">only visible to you</Text>
+            <Text fontSize="md" color="gray.200">
+              Only visible to you
+            </Text>
           </Box>
           <Flex>
             {artists.map(artist => (
@@ -54,12 +56,14 @@ const Home = ({ artists }: Props) => {
                   width="100%"
                 >
                   <Image
-                    src="https://placekitten.com/300/300"
+                    src={`https://i.pravatar.cc/300?u=${artist.id}`}
                     borderRadius="100%"
                   />
                   <Box marginTop="20px">
                     <Text fontSize="large">{artist.name}</Text>
-                    <Text fontSize="x-small">Artist</Text>
+                    <Text fontSize="x-small" color="gray.200">
+                      Artist
+                    </Text>
                   </Box>
                 </Box>
               </Box>
