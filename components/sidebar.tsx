@@ -68,7 +68,12 @@ export const Sidebar = () => {
         <Box mb="20px">
           <List spacing={2}>
             {navMenu.map(item => (
-              <ListItem key={item.name} px="20px" fontSize="16px">
+              <ListItem
+                key={item.name}
+                px="20px"
+                fontSize="16px"
+                _hover={{ color: 'white' }}
+              >
                 <LinkBox>
                   <NextLink href={item.route} passHref>
                     <LinkOverlay>
@@ -85,7 +90,12 @@ export const Sidebar = () => {
         <Box my="20px">
           <List spacing={2}>
             {musicMenu.map(item => (
-              <ListItem key={item.name} px="20px" fontSize="16px">
+              <ListItem
+                key={item.name}
+                px="20px"
+                fontSize="16px"
+                _hover={{ color: 'white' }}
+              >
                 <LinkBox>
                   <NextLink href={item.route} passHref>
                     <LinkOverlay>
@@ -106,7 +116,7 @@ export const Sidebar = () => {
         <Box h="66%" overflowY="auto" py="20px">
           <List spacing={2}>
             {playlists.map((playlist: Playlist) => (
-              <ListItem key={playlist.id} px="20px">
+              <ListItem key={playlist.id} px="20px" _hover={{ color: 'white' }}>
                 <LinkBox>
                   <NextLink
                     href={{

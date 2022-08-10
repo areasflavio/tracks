@@ -154,6 +154,7 @@ export const Player = ({ activeSong, songs }: Props) => {
             aria-label="shuffle"
             fontSize="24px"
             color={isShuffle ? 'white' : 'gray.600'}
+            _hover={{ color: 'white' }}
             onClick={onShuffle}
             icon={<MdShuffle />}
           />
@@ -161,6 +162,7 @@ export const Player = ({ activeSong, songs }: Props) => {
             outline="none"
             variant="link"
             aria-label="previous"
+            _hover={{ color: 'white' }}
             fontSize="24px"
             icon={<MdSkipPrevious />}
             onClick={prevSong}
@@ -191,6 +193,7 @@ export const Player = ({ activeSong, songs }: Props) => {
             outline="none"
             variant="link"
             aria-label="next"
+            _hover={{ color: 'white' }}
             fontSize="24px"
             icon={<MdSkipNext />}
             onClick={nextSong}
@@ -199,6 +202,7 @@ export const Player = ({ activeSong, songs }: Props) => {
             outline="none"
             variant="link"
             aria-label="repeat"
+            _hover={{ color: 'white' }}
             fontSize="24px"
             color={isRepeat ? 'white' : 'gray.600'}
             onClick={onRepeat}
