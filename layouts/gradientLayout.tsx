@@ -1,5 +1,8 @@
 import { Box, BoxProps, Flex, Text } from '@chakra-ui/layout';
 import { Image } from '@chakra-ui/react';
+import { User } from '@prisma/client';
+import { UserMenu } from '../components/userMenu';
+import { useFetchWithSWR } from '../hooks/useFetchWithSWR';
 
 type Props = BoxProps & {
   description: string;
@@ -18,12 +21,22 @@ export const GradientLayout = ({
   subtitle,
   title,
 }: Props) => {
+  const { data: user } = useFetchWithSWR<User>('/me');
+
   return (
     <Box
       height="100%"
       overflowY="auto"
       bgGradient={`linear(${color}.500 0%, ${color}.600 15%, ${color}.700 40%, rgba(0,0,0,0.95) 75%)`}
+      position="relative"
     >
+      <Flex position="absolute" top={4} right={8}>
+        <UserMenu
+          avatar={`https://i.pravatar.cc/300?u=${user.name}`}
+          name={user.name}
+        />
+      </Flex>
+
       <Flex bg={`${color}.600`} padding="40px" align="end">
         <Box padding="20px">
           <Image
@@ -38,7 +51,9 @@ export const GradientLayout = ({
             {subtitle}
           </Text>
           <Text fontSize="6xl">{title}</Text>
-          <Text fontSize="x-small">{description}</Text>
+          <Text fontSize="x-small" color="gray.200">
+            {description}
+          </Text>
         </Box>
       </Flex>
       <Box paddingY="50px">{children}</Box>
